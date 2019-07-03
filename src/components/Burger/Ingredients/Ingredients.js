@@ -34,7 +34,6 @@ const ingredients = props => {
 			ingredient = null;
 			break;
 	}
-
 	return ingredient;
 };
 

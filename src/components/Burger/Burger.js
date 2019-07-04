@@ -13,7 +13,6 @@ const burger = props => {
 		.reduce((prev, current) => {
 			return prev.concat(current);
 		}, []);
-	console.log(ingredientsArray);
 
 	if (ingredientsArray.length === 0) {
 		ingredientsArray = (

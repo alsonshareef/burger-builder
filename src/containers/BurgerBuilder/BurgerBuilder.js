@@ -48,6 +48,11 @@ class BurgerBuilder extends Component {
 		this.setState({ purchasing: false });
 	};
 
+	// Invoked when user wants to continue to checkout.
+	continuePurchaseHandler = () => {
+		alert("Continued to checkout!");
+	};
+
 	addIngredientHandler = type => {
 		const oldIngTotal = this.state.ingredients[type];
 		const updatedIngTotal = oldIngTotal + 1;
@@ -100,7 +105,11 @@ class BurgerBuilder extends Component {
 					purchasing={this.state.purchasing}
 					cancelBackdrop={this.cancelPurchaseHandler}
 				>
-					<OrderSummary ingredients={this.state.ingredients} />
+					<OrderSummary
+						ingredients={this.state.ingredients}
+						cancelPurchase={this.cancelPurchaseHandler}
+						continuePurchase={this.continuePurchaseHandler}
+					/>
 				</Modal>
 				<Burger ingredients={this.state.ingredients} />
 				<BuildControls

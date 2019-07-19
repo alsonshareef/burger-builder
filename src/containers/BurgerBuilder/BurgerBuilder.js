@@ -43,6 +43,11 @@ class BurgerBuilder extends Component {
 		this.setState({ purchasing: true });
 	};
 
+	// Invoked when user wants to leave purchasing screen by clicking on backdrop.
+	cancelPurchaseHandler = () => {
+		this.setState({ purchasing: false });
+	};
+
 	addIngredientHandler = type => {
 		const oldIngTotal = this.state.ingredients[type];
 		const updatedIngTotal = oldIngTotal + 1;
@@ -91,7 +96,10 @@ class BurgerBuilder extends Component {
 
 		return (
 			<Aux>
-				<Modal purchasing={this.state.purchasing}>
+				<Modal
+					purchasing={this.state.purchasing}
+					cancelBackdrop={this.cancelPurchaseHandler}
+				>
 					<OrderSummary ingredients={this.state.ingredients} />
 				</Modal>
 				<Burger ingredients={this.state.ingredients} />

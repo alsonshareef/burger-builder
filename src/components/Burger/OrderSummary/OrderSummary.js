@@ -13,8 +13,9 @@ const orderSummary = props => {
 	return (
 		<Aux>
 			<h3>Your Order</h3>
-			<p>Your burger's ingredients:</p>
+			<p>Your chosen ingredients:</p>
 			<ul>{ingredientSummary}</ul>
+			<p>Would you like to continue to checkout?</p>
 		</Aux>
 	);
 };

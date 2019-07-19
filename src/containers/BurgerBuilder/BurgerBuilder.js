@@ -21,9 +21,11 @@ class BurgerBuilder extends Component {
 			meat: 0
 		},
 		totalPrice: 4,
-		purchasable: false
+		purchasable: false,
+		purchasing: false
 	};
 
+	// Enables 'Order' button in BuildControls if at least 1 ingredient is added to burger.
 	updatePurchaseState = ingredients => {
 		const sum = Object.keys(ingredients)
 			.map(key => {
@@ -34,6 +36,11 @@ class BurgerBuilder extends Component {
 			}, 0);
 
 		this.setState({ purchasable: sum > 0 });
+	};
+
+	// Implies that order is ready to be purchased if invoked.
+	purchasingHandler = () => {
+		this.setState({ purchasing: true });
 	};
 
 	addIngredientHandler = type => {
@@ -84,7 +91,7 @@ class BurgerBuilder extends Component {
 
 		return (
 			<Aux>
-				<Modal>
+				<Modal purchasing={this.state.purchasing}>
 					<OrderSummary ingredients={this.state.ingredients} />
 				</Modal>
 				<Burger ingredients={this.state.ingredients} />
@@ -93,6 +100,7 @@ class BurgerBuilder extends Component {
 					removeIngredients={this.removeIngredientHandler}
 					disabled={disabledInfo}
 					purchasable={this.state.purchasable}
+					purchasing={this.purchasingHandler}
 					price={this.state.totalPrice}
 				/>
 			</Aux>

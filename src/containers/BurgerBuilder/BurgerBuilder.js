@@ -1,9 +1,9 @@
-import React, { Component } from "react";
-import Aux from "../../hoc/Auxiliary";
-import Burger from "../../components/Burger/Burger";
-import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-import Modal from "../../components/UI/Modal/Modal";
-import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
+import React, { Component } from 'react';
+import Aux from '../../hoc/Auxiliary';
+import Burger from '../../components/Burger/Burger';
+import BuildControls from '../../components/Burger/BuildControls/BuildControls';
+import Modal from '../../components/UI/Modal/Modal';
+import OrderSummary from '../../components/Burger/OrderSummary/OrderSummary';
 
 const INGREDIENT_PRICES = {
 	salad: 0.5,
@@ -50,7 +50,7 @@ class BurgerBuilder extends Component {
 
 	// Invoked when user wants to continue to checkout.
 	continuePurchaseHandler = () => {
-		alert("Continued to checkout!");
+		alert('Continued to checkout!');
 	};
 
 	addIngredientHandler = type => {
@@ -106,6 +106,7 @@ class BurgerBuilder extends Component {
 					cancelBackdrop={this.cancelPurchaseHandler}
 				>
 					<OrderSummary
+						totalPrice={this.state.totalPrice}
 						ingredients={this.state.ingredients}
 						cancelPurchase={this.cancelPurchaseHandler}
 						continuePurchase={this.continuePurchaseHandler}
@@ -118,7 +119,7 @@ class BurgerBuilder extends Component {
 					disabled={disabledInfo}
 					purchasable={this.state.purchasable}
 					purchasing={this.purchasingHandler}
-					price={this.state.totalPrice}
+					totalPrice={this.state.totalPrice}
 				/>
 			</Aux>
 		);

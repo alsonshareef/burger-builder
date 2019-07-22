@@ -1,12 +1,12 @@
-import React from "react";
-import Aux from "../../../hoc/Auxiliary";
-import Button from "../../UI/Button/Button";
+import React from 'react';
+import Aux from '../../../hoc/Auxiliary';
+import Button from '../../UI/Button/Button';
 
 const orderSummary = props => {
 	const ingredientSummary = Object.keys(props.ingredients).map(key => {
 		return (
 			<li key={key}>
-				<span style={{ textTransform: "capitalize" }}>{key}</span>:{" "}
+				<span style={{ textTransform: 'capitalize' }}>{key}</span>:{' '}
 				{props.ingredients[key]}
 			</li>
 		);
@@ -16,6 +16,7 @@ const orderSummary = props => {
 			<h3>Your Order</h3>
 			<p>Your chosen ingredients:</p>
 			<ul>{ingredientSummary}</ul>
+			<strong>Total Price: {props.totalPrice}</strong>
 			<p>Would you like to continue to checkout?</p>
 			<Button btnType="Danger" click={props.cancelPurchase}>
 				Cancel

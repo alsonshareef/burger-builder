@@ -7,7 +7,7 @@ import NavItems from '../NavItems/NavItems';
 const sidebar = () => {
 	return (
 		<div className={classes.Sidebar}>
-			<Logo />
+			<Logo height="11%" marginBottom="32px" />
 			<nav>
 				<NavItems />
 			</nav>

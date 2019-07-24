@@ -1,17 +1,15 @@
+/* Mobile-first styles */
 .Item {
-	margin: 0;
+	margin: 10px 0;
 	box-sizing: border-box;
-	display: flex;
-	height: 100%;
-	align-items: center;
+	display: block;
+	width: 100%;
 }
 
 .Item a {
-	color: white;
+	color: #8f5c2c;
 	text-decoration: none;
 	height: 100%;
-	padding: 16px 10px;
-	border-bottom: 4px solid transparent;
 	box-sizing: border-box;
 	display: block;
 }
@@ -19,7 +17,31 @@
 .Item a:hover,
 .Item a:active,
 .Item a.active {
-	background-color: #8f5c2c;
-	border-bottom: 4px solid #40a4c8;
-	color: white;
+	color: #40a4c8;
+}
+
+/* Styles for viewports bigger than mobile */
+@media (min-width: 500px) {
+	.Item {
+		margin: 0;
+		display: flex;
+		height: 100%;
+		width: auto;
+		align-items: center;
+	}
+
+	.Item a {
+		color: white;
+		height: 100%;
+		padding: 16px 10px;
+		border-bottom: 4px solid transparent;
+	}
+
+	.Item a:hover,
+	.Item a:active,
+	.Item a.active {
+		background-color: #8f5c2c;
+		border-bottom: 4px solid #40a4c8;
+		color: white;
+	}
 }

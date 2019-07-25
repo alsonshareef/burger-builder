@@ -1,18 +1,31 @@
-import React from 'react';
+import React, { Component } from 'react';
 import classes from './Layout.css';
 
 import Aux from '../../hoc/Auxiliary';
 import Toolbar from '../Navigation/Toolbar/Toolbar';
 import Sidebar from '../Navigation/Sidebar/Sidebar';
 
-const layout = props => {
-	return (
-		<Aux>
-			<Toolbar />
-			<Sidebar />
-			<main className={classes.Content}>{props.children}</main>
-		</Aux>
-	);
-};
+class Layout extends Component {
+	state = {
+		showSideBar: true
+	};
 
-export default layout;
+	closeSideBarHandler = () => {
+		this.setState({ showSideBar: false });
+	};
+
+	render() {
+		return (
+			<Aux>
+				<Toolbar />
+				<Sidebar
+					open={this.state.showSideBar}
+					close={this.closeSideBarHandler}
+				/>
+				<main className={classes.Content}>{this.props.children}</main>
+			</Aux>
+		);
+	}
+}
+
+export default Layout;

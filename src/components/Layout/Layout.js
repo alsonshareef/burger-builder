@@ -7,7 +7,13 @@ import Sidebar from '../Navigation/Sidebar/Sidebar';
 
 class Layout extends Component {
 	state = {
-		showSideBar: true
+		showSideBar: false
+	};
+
+	toggleSideBarHandler = () => {
+		this.setState(prevState => {
+			return { showSideBar: !prevState.showSideBar };
+		});
 	};
 
 	closeSideBarHandler = () => {
@@ -17,9 +23,9 @@ class Layout extends Component {
 	render() {
 		return (
 			<Aux>
-				<Toolbar />
+				<Toolbar toggle={this.toggleSideBarHandler} />
 				<Sidebar
-					open={this.state.showSideBar}
+					show={this.state.showSideBar}
 					close={this.closeSideBarHandler}
 				/>
 				<main className={classes.Content}>{this.props.children}</main>

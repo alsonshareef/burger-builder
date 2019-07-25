@@ -3,10 +3,11 @@ import classes from './Toolbar.css';
 
 import Logo from '../../Logo/Logo';
 import NavItems from '../NavItems/NavItems';
+import SidebarToggle from '../Sidebar/SidebarToggle/SidebarToggle';
 
-const toolbar = () => (
+const toolbar = props => (
 	<header className={classes.Toolbar}>
-		<div>MENU</div>
+		<SidebarToggle click={props.toggle} />
 		<Logo height="80%" />
 		<nav className={classes.DesktopOnly}>
 			<NavItems />

@@ -1,23 +1,20 @@
-import React from "react";
-import classes from "./Modal.css";
+import React from 'react';
+import classes from './Modal.css';
 
-import Aux from "../../../hoc/Auxiliary";
-import Backdrop from "../Backdrop/Backdrop";
+import Aux from '../../../hoc/Auxiliary';
+import Backdrop from '../Backdrop/Backdrop';
 
 const modal = props => {
 	return (
 		<Aux>
-			<Backdrop
-				purchasing={props.purchasing}
-				cancel={props.cancelBackdrop}
-			/>
+			<Backdrop show={props.show} click={props.cancelBackdrop} />
 			<div
 				className={classes.Modal}
 				style={{
-					transform: props.purchasing
-						? "translateY(0)"
-						: "translateY(-100vh)",
-					opacity: props.purchasing ? "1" : "0"
+					transform: props.show
+						? 'translateY(0)'
+						: 'translateY(-100vh)',
+					opacity: props.show ? '1' : '0'
 				}}
 			>
 				{props.children}

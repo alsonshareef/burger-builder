@@ -1,9 +1,9 @@
-import React from "react";
-import classes from "./Backdrop.css";
+import React from 'react';
+import classes from './Backdrop.css';
 
 const backdrop = props => {
-	return props.purchasing ? (
-		<div className={classes.Backdrop} onClick={props.cancel} />
+	return props.show ? (
+		<div className={classes.Backdrop} onClick={props.click} />
 	) : null;
 };
 

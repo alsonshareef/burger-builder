@@ -8,13 +8,13 @@ import Backdrop from '../../UI/Backdrop/Backdrop';
 
 const sidebar = props => {
 	let attachedClasses = [classes.Sidebar, classes.Close];
-	if (props.open) {
+	if (props.show) {
 		attachedClasses = [classes.Sidebar, classes.Open];
 	}
 
 	return (
 		<Aux>
-			<Backdrop show={props.open} click={props.close} />
+			<Backdrop show={props.show} click={props.close} />
 			<div className={attachedClasses.join(' ')}>
 				<Logo height="11%" marginBottom="32px" />
 				<nav>

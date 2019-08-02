@@ -18,17 +18,24 @@ const INGREDIENT_PRICES = {
 
 class BurgerBuilder extends Component {
 	state = {
-		ingredients: {
-			salad: 0,
-			bacon: 0,
-			cheese: 0,
-			meat: 0
-		},
+		ingredients: null,
 		totalPrice: 4,
 		purchasable: false,
 		purchasing: false,
-		loading: false
+		loading: false,
+		error: false
 	};
+
+	componentDidMount() {
+		axios
+			.get('https://burger-builder-362de.firebaseio.com/ingredients.json')
+			.then(res => {
+				this.setState({ ingredients: res.data });
+			})
+			.catch(error => {
+				this.setState({ error: true });
+			});
+	}
 
 	// Enables 'Order' button in BuildControls if at least 1 ingredient is added to burger.
 	updatePurchaseState = ingredients => {
@@ -53,7 +60,7 @@ class BurgerBuilder extends Component {
 		this.setState({ purchasing: false });
 	};
 
-	// Invoked when user wants to continue to checkout.
+	// Invoked when user wants to continue to checkout and submit order.
 	continuePurchaseHandler = () => {
 		this.setState({ loading: true });
 		const order = {
@@ -68,7 +75,7 @@ class BurgerBuilder extends Component {
 		};
 		axios
 			.post('/orders.json', order)
-			.then(response => {
+			.then(res => {
 				this.setState({ loading: false, purchasing: false });
 			})
 			.catch(error => {
@@ -122,15 +129,39 @@ class BurgerBuilder extends Component {
 			disabledInfo[key] = disabledInfo[key] <= 0;
 		}
 
-		// Show a loading spinner if order summary is loading.
-		let orderSummary = (
-			<OrderSummary
-				totalPrice={this.state.totalPrice}
-				ingredients={this.state.ingredients}
-				cancelPurchase={this.cancelPurchaseHandler}
-				continuePurchase={this.continuePurchaseHandler}
-			/>
-		);
+		// Show Burger and orderSummary only if ingredients have been loaded after mounting. If not, show Spinner.
+		let burger = this.state.error ? (
+				<p>Ingredients couldn't be loaded!</p>
+			) : (
+				<Spinner />
+			),
+			orderSummary = null;
+
+		if (this.state.ingredients) {
+			burger = (
+				<Aux>
+					<Burger ingredients={this.state.ingredients} />
+					<BuildControls
+						addIngredients={this.addIngredientHandler}
+						removeIngredients={this.removeIngredientHandler}
+						disabled={disabledInfo}
+						purchasable={this.state.purchasable}
+						purchasing={this.purchasingHandler}
+						totalPrice={this.state.totalPrice}
+					/>
+				</Aux>
+			);
+			orderSummary = (
+				<OrderSummary
+					totalPrice={this.state.totalPrice}
+					ingredients={this.state.ingredients}
+					cancelPurchase={this.cancelPurchaseHandler}
+					continuePurchase={this.continuePurchaseHandler}
+				/>
+			);
+		}
+
+		// Show a loading spinner if orderSummary is loading. This will happen while order is being sent to server using a POST request.
 		if (this.state.loading) {
 			orderSummary = <Spinner />;
 		}
@@ -143,15 +174,7 @@ class BurgerBuilder extends Component {
 				>
 					{orderSummary}
 				</Modal>
-				<Burger ingredients={this.state.ingredients} />
-				<BuildControls
-					addIngredients={this.addIngredientHandler}
-					removeIngredients={this.removeIngredientHandler}
-					disabled={disabledInfo}
-					purchasable={this.state.purchasable}
-					purchasing={this.purchasingHandler}
-					totalPrice={this.state.totalPrice}
-				/>
+				{burger}
 			</Aux>
 		);
 	}
